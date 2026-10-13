@@ -1,0 +1,116 @@
+$bg: #F0EFEB;
+$bg-2: #E8E7E2;
+$surface: #F7F6F3;
+$surface-2: #E3E2DC;
+$surface-3: #D8D7D0;
+$ink: #191919;
+$ink-2: #3A3A38;
+$muted: #62625E;
+$muted-2: #9C9B96;
+$line: #CFCEC8;
+$line-2: #B9B8B1;
+$line-3: #7C7B76;
+$accent: #6F3FF5;
+$accent-ink: #FFFFFF;
+$accent-2: #5A2BE0;
+$accent-soft: #E6DEFD;
+$ok: #191919;
+$bad: #B3261E;
+$cta: #191919;
+$on-cta: #F0EFEB;
+$r-xl: 0px;
+$r-lg: 0px;
+$r-md: 0px;
+/* Reference face: PP Neue Corp Compact (commercial, not bundled). Archivo at a semi-condensed width
+   stands in until a licensed Neue Corp file is added — then put 'Neue Corp' first here. */
+$display: 'Archivo', 'Helvetica Neue', Arial, system-ui, sans-serif;
+$body: 'Archivo', 'Helvetica Neue', Arial, system-ui, sans-serif;
+$mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+
+:root {
+  color-scheme: light;
+  --bg: #{$bg};
+  --bg-2: #{$bg-2};
+  --surface: #{$surface};
+  --surface-2: #{$surface-2};
+  --surface-3: #{$surface-3};
+  --ink: #{$ink};
+  --ink-2: #{$ink-2};
+  --muted: #{$muted};
+  --muted-2: #{$muted-2};
+  --line: #{$line};
+  --line-2: #{$line-2};
+  /* Secondary borders (fields, frames, ghost buttons): one muted grey. Fields also differ by fill. */
+  --line-3: #A6A59E;
+  /* Boundaries that are the only cue (checkboxes, radios): 3:1 against the background (WCAG 1.4.11). */
+  --line-strong: #{$line-3};
+  --accent: #{$accent};
+  --accent-ink: #{$accent-ink};
+  --accent-2: #{$accent-2};
+  --accent-soft: #{$accent-soft};
+  --ok: #{$ok};
+  --bad: #{$bad};
+  --cta: #{$cta};
+  --on-cta: #{$on-cta};
+  --shadow-1: none;
+  --shadow-2: none;
+  --r-xl: #{$r-xl};
+  --r-lg: #{$r-lg};
+  --r-md: #{$r-md};
+  --display: #{$display};
+  --body: #{$body};
+  --mono: #{$mono};
+  /* Purple used as text or a thin mark (fills keep --accent). Same as --accent in light. */
+  --accent-text: #{$accent};
+  /* Fields, code and other copyable surfaces: white on the grey field. */
+  --field: #FFFFFF;
+  /* Dims the page behind a modal. */
+  --scrim: rgba(25, 25, 25, 0.5);
+  /* Header height, for anchor offsets. */
+  --head-h: 64px;
+  /* Inner padding of sections and rows: 28px on desktop, 18px on phones. */
+  --gutter: 28px;
+  --max: 100%;
+  /* Semi-condensed grotesk, like the reference's Compact cut. */
+  --stretch: 88%;
+
+  @media (max-width: 900px) {
+    --gutter: 22px;
+  }
+
+  @media (max-width: 640px) {
+    --gutter: 18px;
+  }
+}
+
+/*
+ * Dark theme: set by data-theme="dark" on <html> (an inline script in index.html applies the saved
+ * choice before first paint). Same layout, lines and single purple; only the values change.
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #121211;
+  --bg-2: #181817;
+  --surface: #1C1C1A;
+  --surface-2: #2A2A27;
+  --surface-3: #34342F;
+  --ink: #F0EFEB;
+  --ink-2: #CFCEC8;
+  --muted: #A3A29C;
+  --muted-2: #6A6964;
+  --line: #262624;
+  --line-2: #3A3A36;
+  --line-3: #45453F;
+  --line-strong: #7C7B76;
+  --accent: #7B4DFF;
+  --accent-ink: #FFFFFF;
+  --accent-2: #6A3CF0;
+  --accent-soft: #2D2350;
+  --accent-text: #9C7BFF;
+  --ok: #F0EFEB;
+  --bad: #FF7A6E;
+  --cta: #F0EFEB;
+  --on-cta: #121211;
+  --field: #1C1C1A;
+  --scrim: rgba(0, 0, 0, 0.72);
+}

@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  grabster-api:
+    image: '${API_NAME}'
+    build:
+      context: .
+      dockerfile: grabster-api/Dockerfile
+    container_name: ${API_NAME}
+    hostname: ${API_NAME}
+    restart: always
+    env_file: .env
+    ports:
+      - '127.0.0.1:${API_PORT}:${API_PORT}'
+
+  grabster-app:
+    image: '${APP_NAME}'
+    build:
+      context: .
+      dockerfile: grabster-app/Dockerfile
+      secrets:
+        - envfile
+    container_name: ${APP_NAME}
+    hostname: ${APP_NAME}
+    restart: always
+    volumes:
+      - ./grabster-app/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - '127.0.0.1:${APP_PORT}:80'
+
+secrets:
+  envfile:
+    file: .env
+
+networks:
+  default:
+    name: proj-db
+    external: true

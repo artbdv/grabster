@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="grabster-build" content="__GRABSTER_BUILD__" />
+    <title>Grabster — local file</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-9 -9 66 66'%3E%3Crect x='-9' y='-9' width='66' height='66' fill='%23F0EFEB'/%3E%3Cpath fill='%23191919' d='M48 32.48L47.45 33.04L36.84 22.43L34.43 24.84L45.04 35.45L32.48 48L17.52 48L16.96 47.45L27.57 36.84L26.73 36L27.51 36L29.51 34L27 34L27 22L48 22ZM11.16 27.57L12.61 26.12L22.49 36L23.6 36L14.56 45.04L0 30.48L0 17.52L0.56 16.96ZM12 22.49L12 23.6L2.96 14.56L17.52 0L48 0L36 12L22.49 12Z'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-in">
+        <span class="brand">
+          <svg class="mark" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path d="M48 32.48L47.45 33.04L36.84 22.43L34.43 24.84L45.04 35.45L32.48 48L17.52 48L16.96 47.45L27.57 36.84L26.73 36L27.51 36L29.51 34L27 34L27 22L48 22ZM11.16 27.57L12.61 26.12L22.49 36L23.6 36L14.56 45.04L0 30.48L0 17.52L0.56 16.96ZM12 22.49L12 23.6L2.96 14.56L17.52 0L48 0L36 12L22.49 12Z"/></svg>
+          <span class="word">Grabster</span>
+          <span class="tag">Local file</span>
+        </span>
+        <span class="top-rpc" title="Every request this page makes goes to this RPC host">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="top-rpc-label">RPC</span>
+          <b class="rpc-host">—</b>
+        </span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="page-head" aria-labelledby="page-title">
+        <p class="eyebrow">Local file <span aria-hidden="true">·</span> Build <time datetime="__GRABSTER_BUILD__">__GRABSTER_BUILD__</time></p>
+        <h1 id="page-title">Reclaim SOL locked in empty token accounts.</h1>
+        <p class="lede">
+          This is Grabster as one HTML file. The interface and signing run here, in this browser tab.
+          Reading Solana and sending transactions go to the RPC shown on this page. The page makes no other requests.
+        </p>
+
+        <div class="about">
+          <div>
+            <p class="label">How this file works</p>
+            <dl class="facts">
+              <div>
+                <dt>Interface and signing</dt>
+                <dd>Run from this file, in this tab.</dd>
+              </div>
+              <div>
+                <dt>Reads and sends</dt>
+                <dd>Go to <span class="mono">RPC: <b class="rpc-host">—</b></span>. Needs internet. Change the RPC URL below if you have your own.</dd>
+              </div>
+              <div>
+                <dt>Checking an address</dt>
+                <dd>No private key needed. Paste any address and press Scan.</dd>
+              </div>
+              <div>
+                <dt>Closing accounts</dt>
+                <dd>Needs a signature. Paste the wallet's private key, which stays in this tab, or connect Phantom or Solflare. Extensions need this file opened from <span class="mono">http://localhost</span>, not <span class="mono">file://</span>.</dd>
+              </div>
+              <div>
+                <dt>Where the rent goes</dt>
+                <dd>Back to the wallet that owns the accounts. That wallet pays the network fee.</dd>
+              </div>
+              <div>
+                <dt>Grabster fee</dt>
+                <dd>Grabster keeps <span class="fee-pct num"></span> of the rent these transactions recover. It's inside the transaction and shown in the review.</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div>
+            <p class="label">In this build</p>
+            <ul class="scope">
+              <li><span>Close empty token accounts</span><span class="status" data-s="ok">Yes</span></li>
+              <li><span>Burn tokens you select <small>One wallet at a time</small></span><span class="status" data-s="ok">Yes</span></li>
+              <li><span>Refund extra rent <small>From accounts you keep open</small></span><span class="status" data-s="ok">Yes</span></li>
+              <li><span>A list of private keys <small>Closes and refunds only, no burns</small></span><span class="status" data-s="ok">Yes</span></li>
+              <li><span>Dust sweep</span><span class="status" data-s="none">No</span></li>
+              <li><span>NFT burn</span><span class="status" data-s="none">No</span></li>
+              <li><span>Grabster balance <small>Rent always returns to the wallet</small></span><span class="status" data-s="none">No</span></li>
+              <li><span>Referral credit</span><span class="status" data-s="none">No</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="wallet-title">
+        <p class="kicker"><span>01</span>Wallet</p>
+        <div class="body">
+          <h2 id="wallet-title" class="sr-only">Wallet</h2>
+
+          <div class="field">
+            <label class="field-label" for="rpc">RPC URL <small>Host: <b class="rpc-host mono">—</b></small></label>
+            <input id="rpc" class="input" type="url" spellcheck="false" autocomplete="off" value="https://mainnet.helius-rpc.com/?api-key=c0a697cb-68f4-4fac-b3cb-a00f499ab353" />
+            <p class="hint">Scans, simulations and sends go to this endpoint. It must allow requests from a browser.</p>
+          </div>
+
+          <div class="tabs mode" role="tablist" aria-label="How many wallets">
+            <button id="mode-one" type="button" class="on" role="tab" aria-selected="true" aria-controls="one-fields">One wallet</button>
+            <button id="mode-list" type="button" role="tab" aria-selected="false" aria-controls="list-fields" tabindex="-1">A list of keys</button>
+          </div>
+
+          <div id="one-fields" role="tabpanel" aria-labelledby="mode-one">
+            <div class="field">
+              <label class="field-label" for="address">Wallet address <small>No key needed to scan</small></label>
+              <input id="address" class="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Address, or paste a key here and it will be moved" />
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="key">Private key <small>Only to sign. Optional if you connect a wallet</small></label>
+              <div class="key-row">
+                <input id="key" class="input" type="password" spellcheck="false" autocomplete="off" autocapitalize="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" aria-describedby="key-hint" />
+                <button id="toggle-key" class="btn btn-ghost" type="button">Show</button>
+                <button id="clear-key" class="btn btn-ghost" type="button">Clear</button>
+              </div>
+              <p id="key-hint" class="hint">Base58 or a JSON byte array. It stays in this tab: not saved, not sent. Cleared after a successful send and when the tab closes.</p>
+            </div>
+
+            <div class="actions">
+              <button id="scan" class="btn" type="button">Scan</button>
+              <button id="connect" class="btn btn-ghost" type="button">Connect wallet</button>
+            </div>
+            <p class="hint">Phantom and Solflare only see this page when it's opened from <span class="mono">http://localhost</span>. From <span class="mono">file://</span>, paste the key instead.</p>
+          </div>
+
+          <div id="list-fields" role="tabpanel" aria-labelledby="mode-list" hidden>
+            <div class="field">
+              <label class="field-label" for="keys">Private keys <small>One per line. Base58 or a JSON byte array</small></label>
+              <textarea id="keys" class="input" spellcheck="false" autocomplete="off" autocapitalize="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" rows="8" placeholder="One private key per line"></textarea>
+            </div>
+            <div class="btn-row">
+              <button id="scan-list" class="btn" type="button">Scan all</button>
+              <button id="clear-keys" class="btn btn-ghost" type="button">Clear</button>
+            </div>
+            <p class="hint">Each line is its own wallet. Empty accounts are closed and extra rent is refunded. Tokens are not burned. The SOL that comes back stays on that same wallet. Keys stay in this tab.</p>
+          </div>
+
+          <p id="wallet-note" class="note-line" aria-live="polite"></p>
+          <p id="error" class="alert" role="alert"></p>
+        </div>
+      </section>
+
+      <section id="results" class="section" aria-labelledby="results-title" hidden>
+        <p class="kicker"><span>02</span>Scan result</p>
+        <div class="body">
+          <h2 id="results-title">On this wallet</h2>
+          <p class="scanned mono" id="scanned"></p>
+
+          <div class="stats-row">
+            <div>
+              <b id="stat-sol"></b>
+              <small>SOL on the wallet</small>
+            </div>
+            <div>
+              <b id="stat-rent"></b>
+              <small>SOL locked in empty accounts</small>
+            </div>
+            <div>
+              <b id="stat-empty"></b>
+              <small>Empty token accounts</small>
+            </div>
+          </div>
+
+          <div class="group">
+            <label class="check"><input id="close-empty" type="checkbox" checked /> <span>Close empty token accounts</span></label>
+            <p id="empty-line" class="hint"></p>
+            <p class="hint">Grabster keeps <span class="fee-pct num"></span> of the rent these transactions recover. That share is inside the transaction and shown in the review.</p>
+          </div>
+
+          <div class="group">
+            <h3>Burn selected tokens</h3>
+            <p class="hint">Burning destroys the tokens, then closes the account and returns its rent. This cannot be undone.</p>
+            <ul id="dust" class="accounts"></ul>
+            <p id="dust-empty" class="hint">No burnable token accounts.</p>
+          </div>
+
+          <div class="group">
+            <h3>Extra rent</h3>
+            <p class="hint">Some accounts hold more SOL than they need to stay open. The extra can come back while the account stays.</p>
+            <ul id="refunds" class="accounts"></ul>
+            <p id="refund-empty" class="hint">No extra deposits worth refunding unless you select one.</p>
+          </div>
+
+          <div class="group">
+            <h3>Left untouched</h3>
+            <ul id="untouched" class="accounts plain"></ul>
+          </div>
+
+          <div class="btn-row">
+            <button id="review" class="btn" type="button">Review transactions</button>
+          </div>
+          <p id="review-error" class="alert" role="alert"></p>
+        </div>
+      </section>
+
+      <section id="batch" class="section" aria-labelledby="batch-title" hidden>
+        <p class="kicker"><span>02</span>Scan result</p>
+        <div class="body">
+          <h2 id="batch-title">These wallets</h2>
+          <div id="batch-rows"></div>
+          <div class="btn-row">
+            <button id="send-list" class="btn" type="button">Sign and send all</button>
+          </div>
+          <p id="batch-error" class="alert" role="alert"></p>
+          <p id="batch-status" class="note-line" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section id="plan" class="section" aria-labelledby="plan-title" hidden>
+        <p class="kicker"><span>03</span>Review</p>
+        <div class="body">
+          <h2 id="plan-title">Where the SOL goes</h2>
+          <p class="hint">Built in this tab from what the RPC returned. Nothing is signed until you press Sign and send. The page simulates every transaction on the RPC first and stops if one fails.</p>
+          <div id="receipt"></div>
+          <div class="btn-row">
+            <button id="send" class="btn btn-lg" type="button" disabled>Sign and send</button>
+          </div>
+          <p id="send-error" class="alert" role="alert"></p>
+          <p id="status" class="note-line live" role="status" aria-live="polite"></p>
+          <ul id="sigs"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot-in">
+        <span class="brand small">
+          <svg class="mark" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true" focusable="false"><path d="M48 32.48L47.45 33.04L36.84 22.43L34.43 24.84L45.04 35.45L32.48 48L17.52 48L16.96 47.45L27.57 36.84L26.73 36L27.51 36L29.51 34L27 34L27 22L48 22ZM11.16 27.57L12.61 26.12L22.49 36L23.6 36L14.56 45.04L0 30.48L0 17.52L0.56 16.96ZM12 22.49L12 23.6L2.96 14.56L17.52 0L48 0L36 12L22.49 12Z"/></svg>
+          <span class="word">Grabster</span>
+        </span>
+        <span>Local file · Build <time datetime="__GRABSTER_BUILD__">__GRABSTER_BUILD__</time></span>
+        <span>Fee <span class="fee-pct"></span> to <span class="treasury mono"></span></span>
+        <span>The fee address and percent are set when this file is built.</span>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

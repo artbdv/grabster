@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: Grabster Partner API
+  version: 1.0.0
+  description: |
+    Scan a Solana wallet, build an unsigned reclaim plan, and submit transactions the partner already signed.
+    Private keys are rejected. The fee recipient is the Grabster treasury inside the plan and cannot be set by the client.
+    Signed transactions are checked against that plan before broadcast.
+    A signed-in wallet gets its own key from GET /v1/partner/key. That route uses the site session, not the partner key.
+    Balance deposits, referrals, and withdrawals are not part of this contract.
+    `GET /v1/config` on the same host returns public fee rates and does not require a partner key.
+servers:
+  - url: http://localhost:8787
+    description: Replace with the Grabster API host you were given.
+security:
+  - partnerKey: []
+paths:
+  /v1/partner/openapi.yaml:
+    get:
+      security: []
+      summary: This document.
+      responses:
+        '200':
+          description: OpenAPI YAML
+          content:
+            application/yaml:
+              schema:
+                type: string
+  /v1/partner/key:
+    get:
+      security: []
+      summary: Create or return the API key for the signed-in wallet.
+      responses:
+        '200':
+          description: The secret for this wallet.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [key, createdAt]
+                properties:
+                  key:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+        '401':
+          $ref: '#/components/responses/Error'
+  /v1/partner/key/rotate:
+    post:
+      security: []
+      summary: Replace the signed-in wallet's API key. The previous secret stops working.
+      responses:
+        '200':
+          description: The new secret.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [key, createdAt]
+                properties:
+                  key:
+                    type: string
+                  createdAt:
+                    type: string
+                    format: date-time
+        '401':
+          $ref: '#/components/responses/Error'
+  /v1/partner/me:
+    get:
+      summary: Check the API key.
+      responses:
+        '200':
+          description: Key accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [name]
+                properties:
+                  name:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Error'
+  /v1/partner/scan/{address}:
+    get:
+      summary: Scan one wallet.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Scan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scan'
+        '400':
+          $ref: '#/components/responses/Error'
+  /v1/partner/scan:
+    post:
+      summary: Scan up to 25 wallets.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [addresses]
+              properties:
+                addresses:
+                  type: array
+                  minItems: 1
+                  maxItems: 25
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Batch scan
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [rows]
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      required: [address, estimate]
+                      properties:
+                        address:
+                          type: string
+                        estimate:
+                          $ref: '#/components/schemas/Estimate'
+                        error:
+                          type: string
+  /v1/partner/plan:
+    post:
+      summary: Build unsigned transactions. dest is same or other. Balance is rejected.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanRequest'
+      responses:
+        '200':
+          description: Plan. feeTo on each transaction is the Grabster treasury when a fee is charged.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        '400':
+          $ref: '#/components/responses/Error'
+  /v1/partner/submit:
+    post:
+      summary: Broadcast transactions signed by the wallet owner. Referral codes are ignored.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [planId, txs]
+              properties:
+                planId:
+                  type: string
+                txs:
+                  type: array
+                  items:
+                    type: string
+                    description: Base64 legacy transaction, owner-signed, still missing the treasury signature when needsTreasurySig is true.
+      responses:
+        '200':
+          description: Signatures
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [signatures]
+                properties:
+                  signatures:
+                    type: array
+                    items:
+                      type: string
+components:
+  securitySchemes:
+    partnerKey:
+      type: http
+      scheme: bearer
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [error]
+            properties:
+              error:
+                type: string
+              code:
+                type: string
+              signatures:
+                type: array
+                items:
+                  type: string
+  schemas:
+    Estimate:
+      type: object
+      properties:
+        empty:
+          type: integer
+        dust:
+          type: integer
+        nft:
+          type: integer
+        frozen:
+          type: integer
+        keep:
+          type: integer
+        emptySol:
+          type: number
+        dustSol:
+          type: number
+        excess:
+          type: integer
+        excessSol:
+          type: number
+        sol:
+          type: number
+        noSol:
+          type: boolean
+    Scan:
+      type: object
+      required: [address, estimate, boxes, rentNow]
+      properties:
+        address:
+          type: string
+        estimate:
+          $ref: '#/components/schemas/Estimate'
+        boxes:
+          type: array
+          items:
+            type: object
+        rentNow:
+          type: number
+    PlanRequest:
+      type: object
+      required: [address, dest]
+      properties:
+        address:
+          type: string
+        dest:
+          type: string
+          enum: [same, other]
+        other:
+          type: string
+          description: Required when dest is other. Cannot be the treasury.
+        burnDust:
+          type: boolean
+        burnAccounts:
+          type: array
+          items:
+            type: string
+        sweepAccounts:
+          type: array
+          items:
+            type: string
+          description: Leftovers Grabster may take. Omitted accounts are not swept.
+        burnNft:
+          type: boolean
+        nftAccounts:
+          type: array
+          items:
+            type: string
+        refundExcess:
+          type: boolean
+        refundAccounts:
+          type: array
+          items:
+            type: string
+    Plan:
+      type: object
+      required: [planId, address, dest, destination, feePayer, needsTreasurySig, feeLamports, netLamports, recoveredLamports, txs]
+      properties:
+        planId:
+          type: string
+        address:
+          type: string
+        dest:
+          type: string
+        destination:
+          type: string
+        feePayer:
+          type: string
+        needsTreasurySig:
+          type: boolean
+        feeLamports:
+          type: integer
+        netLamports:
+          type: integer
+        recoveredLamports:
+          type: integer
+        txs:
+          type: array
+          items:
+            type: object
+            required: [id, type, tx, description]
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              tx:
+                type: string
+                description: Base64 unsigned legacy transaction.
+              description:
+                type: object
+                properties:
+                  feeTo:
+                    type: string
+                  feeLamports:
+                    type: integer
+                  recoveredLamports:
+                    type: integer
+                  closeDestination:
+                    type: string

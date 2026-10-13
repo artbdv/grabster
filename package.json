@@ -1,0 +1,23 @@
+{
+  "name": "grabster",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "grabster-api",
+    "grabster-app",
+    "grabster-mcp",
+    "grabster-local"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,app -c cyan,magenta \"npm run dev -w grabster-api\" \"npm run dev -w grabster-app\"",
+    "dev:api": "npm run dev -w grabster-api",
+    "dev:app": "npm run dev -w grabster-app",
+    "dev:local": "npm run dev -w grabster-local",
+    "build:local": "npm run build -w grabster-local",
+    "start:mcp": "npm run start -w grabster-mcp",
+    "check:local-plan": "npm run check -w @grabster/solana-core"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#121211" />
+    <script>
+      // Dark by default. Only an explicit choice made with the header switch ('grabster-theme-choice')
+      // turns it light; the older auto-written 'grabster-theme' key is ignored. Runs before first paint.
+      ;(function () {
+        var light = false
+        try { light = localStorage.getItem('grabster-theme-choice') === 'light' } catch (e) {}
+        if (light) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F0EFEB')
+        else document.documentElement.dataset.theme = 'dark'
+      })()
+    </script>
+    <!-- Page colour before the app's CSS arrives, so a dark load never flashes white. -->
+    <style>
+      html { background: #F0EFEB; }
+      html[data-theme='dark'] { background: #121211; color-scheme: dark; }
+    </style>
+    <title>Grabster — get your SOL back</title>
+    <meta name="description" content="Recover SOL left in unused Solana token accounts — from one wallet or an entire list. Free API and MCP access; a 1% service fee on recovered rent." />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- __SITE_URL__ is filled from VITE_SITE_URL at build time (see vite.config.ts). -->
+    <link rel="canonical" href="__SITE_URL__/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Grabster" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:title" content="Grabster — get your SOL back" />
+    <meta property="og:description" content="Recover SOL left in unused token accounts — from one wallet or an entire list." />
+    <meta property="og:image" content="__SITE_URL__/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Grabster — get your SOL back" />
+    <meta name="twitter:description" content="Recover SOL left in unused token accounts — from one wallet or an entire list." />
+    <meta name="twitter:image" content="__SITE_URL__/og-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

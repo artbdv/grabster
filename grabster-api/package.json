@@ -1,0 +1,31 @@
+{
+  "name": "grabster-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "start": "tsx src/app.ts",
+    "check:inspect": "tsx scripts/check-inspect.ts"
+  },
+  "dependencies": {
+    "@grabster/solana-core": "*",
+    "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.98.2",
+    "bs58": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.23.0",
+    "tweetnacl": "^1.0.3",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.5",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.19.3",
+    "typescript": "~5.7.2"
+  }
+}
